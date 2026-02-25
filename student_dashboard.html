@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4" style="color: var(--turnitin-blue);">
+                    Welcome, {{ username }}! 👋
+                </h2>
+                
+                <hr>
+                
+                <h4 class="mt-4 mb-3">
+                    <i class="fas fa-upload"></i> Upload Your Document
+                </h4>
+                
+                <form method="POST" action="{{ url_for('analyze') }}" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="file" class="form-label">Select Word Document (.docx only)</label>
+                        <input type="file" class="form-control" id="file" name="file" accept=".docx" required>
+                        <div class="form-text">Maximum file size: 10MB</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-search"></i> Analyze Document
+                    </button>
+                </form>
+                
+                <div class="alert alert-info mt-4">
+                    <h6><i class="fas fa-info-circle"></i> What we check:</h6>
+                    <ul class="mb-0">
+                        <li><strong>AI Detection:</strong> Real-time analysis using Sapling AI</li>
+                        <li><strong>Plagiarism:</strong> Match against academic sources</li>
+                        <li><strong>Writing Patterns:</strong> Linguistic analysis</li>
+                        <li><strong>Readability:</strong> Comprehensive metrics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-body p-4">
+                <h5><i class="fas fa-clock"></i> Analysis takes approximately 30-60 seconds</h5>
+                <p class="mb-0 text-muted">You'll receive two detailed PDF reports:</p>
+                <ul class="text-muted">
+                    <li>Plagiarism Report with source analysis</li>
+                    <li>AI Detection Report with confidence breakdown</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

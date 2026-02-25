@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-10">
+        <div class="alert alert-success">
+            <h4><i class="fas fa-check-circle"></i> Analysis Complete!</h4>
+            <p class="mb-0">Submission ID: <strong>{{ result.submission_id }}</strong> | Processed: {{ result.submission_date }}</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card stats-card" style="background: linear-gradient(135deg, #D32F2F 0%, #F44336 100%);">
+                    <h5><i class="fas fa-copy"></i> Similarity Index</h5>
+                    <h3>{{ result.plag_percent }}%</h3>
+                    <div class="progress mt-3" style="height: 10px;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ result.plag_percent }}%; background-color: white;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card stats-card" style="background: linear-gradient(135deg, #1E88E5 0%, #42A5F5 100%);">
+                    <h5><i class="fas fa-robot"></i> AI Detection</h5>
+                    <h3>{{ result.ai_percent }}%</h3>
+                    <div class="progress mt-3" style="height: 10px;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ result.ai_percent }}%; background-color: white;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-body p-4">
+                <h5 class="card-title"><i class="fas fa-chart-line"></i> AI Detection Breakdown</h5>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <h6>High Confidence</h6>
+                        <div class="progress" style="height: 25px;">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{ result.high_confidence }}%;">
+                                {{ result.high_confidence }}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Medium Confidence</h6>
+                        <div class="progress" style="height: 25px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ result.medium_confidence }}%;">
+                                {{ result.medium_confidence }}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Low Confidence</h6>
+                        <div class="progress" style="height: 25px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ result.low_confidence }}%;">
+                                {{ result.low_confidence }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mt-4 mb-0">
+                    <strong><i class="fas fa-brain"></i> Detected Model:</strong> {{ result.model_detected }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-body p-4">
+                <h5 class="card-title"><i class="fas fa-book"></i> Writing Analysis</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Readability Metrics</h6>
+                        <ul>
+                            <li>Flesch Reading Ease: <strong>{{ result.readability.flesch_reading_ease }}</strong></li>
+                            <li>Flesch-Kincaid Grade: <strong>{{ result.readability.flesch_kincaid_grade }}</strong></li>
+                            <li>Avg Words/Sentence: <strong>{{ result.readability.avg_words_per_sentence }}</strong></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Pattern Analysis</h6>
+                        <ul>
+                            <li>Burstiness: <strong>{{ result.patterns.burstiness }}</strong></li>
+                            <li>Perplexity: <strong>{{ result.patterns.perplexity }}</strong></li>
+                            <li>Consistency: <strong>{{ result.patterns.consistency }}</strong></li>
+                            <li>Unique Words: <strong>{{ result.patterns.unique_words_ratio }}%</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body p-4 text-center">
+                <h5 class="card-title"><i class="fas fa-download"></i> Download Reports</h5>
+                <div class="row mt-3">
+                    <div class="col-md-6 mb-3">
+                        <a href="{{ url_for('download', report_type='plagiarism') }}" class="btn btn-danger btn-lg w-100">
+                            <i class="fas fa-file-pdf"></i> Plagiarism Report
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <a href="{{ url_for('download', report_type='ai') }}" class="btn btn-primary btn-lg w-100">
+                            <i class="fas fa-file-pdf"></i> AI Detection Report
+                        </a>
+                    </div>
+                </div>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary mt-2">
+                    <i class="fas fa-redo"></i> Analyze Another Document
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

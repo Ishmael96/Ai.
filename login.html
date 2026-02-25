@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-4">
+        <div class="turnitin-logo">
+            <span class="orange">turn</span><span class="blue">it</span><span class="orange">in</span>
+        </div>
+        
+        <div class="card">
+            <div class="card-body p-5">
+                <h3 class="card-title text-center mb-4" style="color: var(--turnitin-blue);">
+                    <i class="fas fa-lock"></i> Login Required
+                </h3>
+                
+                <form method="POST" action="{{ url_for('login') }}">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required placeholder="Enter your username">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 py-2">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+                
+                <div class="alert alert-info mt-4 mb-0">
+                    <i class="fas fa-info-circle"></i> <strong>For access</strong>, please contact your instructor.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
